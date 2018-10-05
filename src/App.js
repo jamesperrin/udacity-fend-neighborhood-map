@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import ListLocations from './ListLocations'
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+
+    state = {
+        locations : [
+            {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
+            {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
+            {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
+            {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
+            {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
+            {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+        ]
+    };
+
+    render() {
+        return (
+            <div className="container">
+                <input type='checkbox' id='menu-trigger' className='menu-trigger' />
+                <label htmlFor="menu-trigger"></label>
+                <div className='locations-wrapper'>
+                    <h1>Search for Venues</h1>
+                    <ListLocations locations={this.state.locations} showMenu={this.state.showMenu} />
+                </div>
+                <div id="map"></div>
+            </div>
     );
   }
 }
