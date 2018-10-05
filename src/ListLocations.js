@@ -11,6 +11,10 @@ class ListLocations extends Component {
         this.setState({query: query.trim()});
     }
 
+    handleClick = (e) => { 
+        console.log(e.target.innerText);
+    }
+
     render() { 
         const { locations} = this.props;
         const { query } = this.state;
@@ -26,14 +30,14 @@ class ListLocations extends Component {
         displayLocations.sort(sortBy('title'));
 
         return (
-            <div className=''>
+            <div className='locations-list'>
                 <input type="text"
                     value={query}
                     placeholder='Filter locations'
                     onChange={(e) => this.updateQuery(e.target.value)} />
                 <ul>
                     {displayLocations.map(location => (
-                        <li key={location.title}>{location.title}</li>
+                        <li key={location.title} onClick={(e) => { this.handleClick(e) }}>{location.title}</li>
                     ))}
                 </ul>
             </div>
