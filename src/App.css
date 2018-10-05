@@ -8,30 +8,76 @@ body {
 
 .container {
     height: 100%;
-    position: relative;
 }
 
-input {
-    font-size: 12px;
+:focus {
+    outline: 2px dotted #cd0000;
 }
 
-h1 {
-    color: #525454;
-    font-size: 22px;
-    margin: 0 0 10px 0;
-    text-align: center;
-
+/*
+==================================
+Menu Trigger
+==================================
+*/
+.menu-trigger {
+    /* critical styles */
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    z-index: 3;
 }
 
+label[for="menu-trigger"] {
+    /* critical positioning styles */
+    position: fixed;
+    left: 15px;
+    top: 15px;
+    z-index: 3;
+
+    /* non-critical apperance styles */
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='30px' height='30px' viewBox='0 0 30 30' enable-background='new 0 0 30 30' xml:space='preserve'><rect width='30' height='6'/><rect y='24' width='30' height='6'/><rect y='12' width='30' height='6'/></svg>");
+    background-size: contain;
+}
+
+/*
+==================================
+Handles the showing and hiding of Locations area
+==================================
+*/
+.menu-trigger:checked~.locations-wrapper {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 300ms, opacity 300ms;
+}
+
+.menu-trigger:not(:checked)~.locations-wrapper {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 0s, opacity 300ms;
+    z-index: 2;
+}
+
+/* 
+==================================
+Google Map styles
+==================================
+ */
 #map {
     bottom: 0;
     height: 100%;
-    left: 362px;
     position: absolute;
+    left: 0;
     right: 0;
     border: 1px solid red;
 }
 
+/* 
+==================================
+Locations styles
+==================================
+ */
 .locations-wrapper {
     background: #fff;
     border: 1px solid #999;
@@ -41,35 +87,20 @@ h1 {
     padding: 10px 10px 30px 10px;
     text-align: left;
     width: 340px;
+    z-index: 2;
+    position: relative;
+}
+
+.locations-wrapper h1 {
+    font-size: 1.75em;
+    margin: 0 0 10px 0;
+    text-align: center;
+    width: 100%;
 }
 
 .locations-wrapper input {
-    width: 100%;
-}
-
-.header {
-    border: 1px solid blue;
-    width: 100%;
-}
-
-/* Menu Trigger */
-.menu-trigger {
-    /* critical styles - hide the checkbox input */
-    position: absolute;
-    clip: rect(0, 0, 0, 0);
-}
-
-label[for="menu-trigger"] {
-    /* critical positioning styles */
-    position: fixed;
-    left: 15px;
-    top: 15px;
+    width: calc(100% - 10px);
     z-index: 2;
-
-    /* non-critical apperance styles */
-    height: 30px;
-    width: 30px;
-    cursor: pointer;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='30px' height='30px' viewBox='0 0 30 30' enable-background='new 0 0 30 30' xml:space='preserve'><rect width='30' height='6'/><rect y='24' width='30' height='6'/><rect y='12' width='30' height='6'/></svg>");
-    background-size: contain;
+    font-size: 1.25em;
+    padding: 5px;
 }
