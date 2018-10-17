@@ -16,18 +16,19 @@ class ListLocations extends Component {
     }
 
     render() { 
-        const { locations} = this.props;
+        const { venues} = this.props;
         const { query } = this.state;
 
         let displayLocations;
 
         if (query) {
             const match = new RegExp(escapeRegExp(query), 'i');
-            displayLocations = locations.filter(location =>  match.test(location.title));
+            displayLocations = venues.filter(venue =>  match.test(venue.name));
         } else {
-            displayLocations = locations;
+            displayLocations = venues;
         }
-        displayLocations.sort(sortBy('title'));
+
+        displayLocations.sort(sortBy('name'));
 
         return (
             <div className='locations-list'>
@@ -36,8 +37,8 @@ class ListLocations extends Component {
                     placeholder='Filter locations'
                     onChange={(e) => this.updateQuery(e.target.value)} />
                 <ul>
-                    {displayLocations.map(location => (
-                        <li key={location.title} onClick={(e) => { this.handleClick(e) }}>{location.title}</li>
+                    {displayLocations.map(venue => (
+                        <li key={venue.id} data-id={venue.id}  onClick={(e) => { this.handleClick(e) }}>{venue.name}</li>
                     ))}
                 </ul>
             </div>
