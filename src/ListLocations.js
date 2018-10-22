@@ -3,32 +3,33 @@ import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 
 class ListLocations extends Component {
+
     state = {
         query: ''
     }
 
+    /**
+     * @description Updates state.query
+     * @param {string} query - venue
+     */
     updateQuery = (query) => { 
         this.setState({query: query.trim()});
     }
 
-    handleClick = (e) => { 
-        console.log(e.target.innerText);
-    }
-
-    render() { 
-        const { venues} = this.props;
+    render() {
+        const { venues } = this.props;
         const { query } = this.state;
 
-        let displayLocations;
+        let displayVenues;
 
         if (query) {
             const match = new RegExp(escapeRegExp(query), 'i');
-            displayLocations = venues.filter(venue =>  match.test(venue.name));
+            displayVenues = venues.filter(venue =>  match.test(venue.name));
         } else {
-            displayLocations = venues;
+            displayVenues = venues;
         }
 
-        displayLocations.sort(sortBy('name'));
+        displayVenues.sort(sortBy('name'));
 
         return (
             <div className='locations-list'>
@@ -37,13 +38,13 @@ class ListLocations extends Component {
                     placeholder='Filter locations'
                     onChange={(e) => this.updateQuery(e.target.value)} />
                 <ul>
-                    {displayLocations.map(venue => (
-                        <li key={venue.id} data-id={venue.id}  onClick={(e) => { this.handleClick(e) }}>{venue.name}</li>
+                    {displayVenues.map(venue => (
+                        <li key={venue.id} onClick={() => this.props.handleListItemClick(venue.id) }>{venue.name}</li>
                     ))}
                 </ul>
             </div>
         )
     }
 }
- 
+
 export default ListLocations;
