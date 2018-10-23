@@ -45,16 +45,16 @@ label[for="menu-trigger"] {
 
 /*
 ==================================
-Handles the showing and hiding of Locations area
+Handles the showing and hiding of venues area
 ==================================
 */
-.menu-trigger:checked~.locations-wrapper {
+.menu-trigger:checked~.venues-wrapper {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s linear 300ms, opacity 300ms;
 }
 
-.menu-trigger:not(:checked)~.locations-wrapper {
+.menu-trigger:not(:checked)~.venues-wrapper {
     visibility: visible;
     opacity: 1;
     transition: visibility 0s linear 0s, opacity 300ms;
@@ -84,10 +84,10 @@ div.gm-style-mtc:first-child {
 
 /*
 ==================================
-Locations styles
+venues styles
 ==================================
  */
-.locations-wrapper {
+.venues-wrapper {
     background: #fff;
     border: 1px solid #999;
     border-radius: 3px;
@@ -99,42 +99,42 @@ Locations styles
     position: relative;
 }
 
-.locations-wrapper h1 {
+.venues-wrapper h1 {
     font-size: 1.75em;
-    margin: 0 0 10px 0;
+    margin: 0 0 .5em .5em;
     text-align: center;
     /* width: 100%; */
 }
 
 @media only screen and (max-width: 355px) {
-    .locations-wrapper{
+    .venues-wrapper{
         width: calc(100% - 10px);
     }
 
-    .locations-wrapper h1 {
+    .venues-wrapper h1 {
         font-size: 1.5em;
-        margin: 0 0 10px 5px;
+        margin: 0 0 .5em .5em;
         text-align: center;
         width: 100%;
     }
 }
 
 @media only screen and (max-width: 315px) {
-    .locations-wrapper h1 {
+    .venues-wrapper h1 {
         font-size: 1.3em;
-        margin: 0 0 10px 5px;
+        margin: 0 0 .5em .5em;
         text-align: center;
         width: 100%;
     }
 }
 
-.locations-wrapper input {
+.venues-wrapper input {
     width: calc(100% - 13px);
     z-index: 2;
     font-size: 1.25em;
     padding: 5px;
 }
 
-.locations-list ul li {
+.venues-list ul li {
     cursor: pointer;
 }
