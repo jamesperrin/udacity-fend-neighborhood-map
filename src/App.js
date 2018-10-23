@@ -207,16 +207,28 @@ class App extends Component {
     render() {
         return (
             <div className="container">
-                <input type='checkbox' id='menu-trigger' className='menu-trigger' />
-                <label htmlFor="menu-trigger"></label>
-                <div className='venues-wrapper'>
-                    <h1>Search for Venues</h1>
-                    <ListVenues
-                        handleListItemClick={this.handleListItemClick}
-                        venues={this.state.venues}
-                        updateMarkersVisibility={this.updateMarkersVisibility} />
+                <div className="venues-container">
+                    <input type="checkbox" id="menu-trigger" className="menu-trigger" />
+                    <label htmlFor="menu-trigger"></label>
+                    <div className="venues-wrapper">
+                        <h1 role="heading">Search for Venues</h1>
+                        <ListVenues
+                            handleListItemClick={this.handleListItemClick}
+                            venues={this.state.venues}
+                            updateMarkersVisibility={this.updateMarkersVisibility} />
+                        <div id="venue-container-footer">
+                            <ul>
+                                <li>
+                                    Data source: <a href="https://developer.foursquare.com/docs/api/endpoints" target="_blank" title="Foursquare Places API">Foursquare Places API</a>
+                                </li>
+                                <li>
+                                    Developer: <a href="https://github.com/jamesperrin" title="James Perrin's GitHub Profile" target="_blank">James Perrin</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div id="map"></div>
+                <div id="map" aria-hidden="true" role="application"></div>
             </div>
     );
   }

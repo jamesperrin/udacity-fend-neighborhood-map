@@ -16,6 +16,8 @@ body {
     outline: 2px dotted #cd0000;
 }
 
+
+
 /*
 ==================================
 Menu Trigger
@@ -69,6 +71,7 @@ Google Map styles
 #map {
     bottom: 0;
     height: 100%;
+    /* height: calc(100% - 25px); */
     position: absolute;
     left: 0;
     right: 0;
@@ -84,7 +87,31 @@ div.gm-style-mtc:first-child {
 
 /*
 ==================================
-venues styles
+Venue Container Footer
+==================================
+ */
+ #venue-container-footer {
+    background: #F8F8FF;
+    padding: 5px;
+    text-align: left;
+    font-size: 1em;
+}
+
+#venue-container-footer ul{
+    margin: 0;
+    padding: 0;
+}
+
+#venue-container-footer li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    line-height: 1.5em;
+}
+
+/*
+==================================
+Venues styles
 ==================================
  */
 .venues-wrapper {
@@ -103,7 +130,7 @@ venues styles
     font-size: 1.75em;
     margin: 0 0 .5em .5em;
     text-align: center;
-    /* width: 100%; */
+    width: 100%;
 }
 
 @media only screen and (max-width: 355px) {
@@ -114,8 +141,6 @@ venues styles
     .venues-wrapper h1 {
         font-size: 1.5em;
         margin: 0 0 .5em .5em;
-        text-align: center;
-        width: 100%;
     }
 }
 
@@ -123,8 +148,6 @@ venues styles
     .venues-wrapper h1 {
         font-size: 1.3em;
         margin: 0 0 .5em .5em;
-        text-align: center;
-        width: 100%;
     }
 }
 
