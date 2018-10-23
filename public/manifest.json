@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Neighborhood Map",
+  "name": "Udacity FEND Neighborhood Map Project",
   "icons": [
     {
       "src": "favicon.ico",
