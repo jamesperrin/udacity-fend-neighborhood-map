@@ -5,7 +5,11 @@ let config = {
         v: '20181016'
     },
     GoogleMap: {
-        apiKey: 'AIzaSyBwoO1Dwt0kZBsFWmwakFGrokH-vQeb29U'
+        apiKey: 'AIzaSyBwoO1Dwt0kZBsFWmwakFGrokH-vQeb29U',
+        icon: {
+            default: 'http://maps.google.com/mapfiles/kml/pal2/icon62.png',
+            selected: 'http://maps.google.com/mapfiles/kml/pal2/icon54.png'
+        }
     }
 };
 
