@@ -9,7 +9,7 @@ const base = {
     }
 }
 
-class FoursquareAPI {
+export default class FoursquareAPI {
     //TODO: Fix bug: won't retrieve JSON
     /**
      * @description Retrieves list of venues fakes
@@ -26,18 +26,6 @@ class FoursquareAPI {
         const search_params = Helpers.JsonObjectToParams(params);
 
         return fetch(`${base.url}/venues/search?${search_params}&${base.credentials}`, base.headers)
-            .then(res => res.json());
-    }
-
-    //TODO: Fix bug: Error parsing response
-    /**
-     * @description Retrieves list of venues
-     * @param params Parameters passed to Foursquare API Explore
-     */
-    static explore = (params) => {
-        const explore_params = Helpers.JsonObjectToParams(params);
-
-        return fetch(`${base.url}/venues/explore?${explore_params}&${base.credentials}`, base.headers)
             .then(res => res.json());
     }
 
@@ -59,5 +47,3 @@ class FoursquareAPI {
         .then(res => res.json());
     }
 }
-
-export default FoursquareAPI;
