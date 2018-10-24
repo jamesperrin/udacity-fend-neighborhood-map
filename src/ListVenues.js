@@ -37,16 +37,16 @@ class ListVenues extends Component {
         displayVenues.sort(sortBy('name'));
 
         return (
-            <div className='venues-list' tabindex="0">
+            <div className='venues-list' tabIndex="0">
                 <input
                     type="text"
                     value={query}
                     placeholder="Filter venues"
                     aria-label="Filter venues"
                     onChange={(e) => this.updateQuery(e.target.value)}/>
-                <ul tabindex="0">
+                <ul tabIndex="0">
                     {displayVenues.map(venue => (
-                        <li key={venue.id} onClick={() => handleListItemClick(venue.id) }>{venue.name}</li>
+                        <li key={venue.id} tabIndex="0" onClick={() => handleListItemClick(venue.id) } title={venue.name} aria-label={venue.name}>{venue.name}</li>
                     ))}
                 </ul>
             </div>
