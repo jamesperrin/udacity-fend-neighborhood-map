@@ -34,15 +34,13 @@ Udactiy Front-End Web Developer Nanodegree
     ```
     npm start
     ```
-4. Navigate to `http://localhost:3000` in your browser. 
-> Note 1: If you have `http-server` installed globally you can serve the site without using `npm install` first or by using the following command in the project directory.
-> ```
-> http-server ./
-> ```
-> Note 2: To use another port use the command:
-> ```
-> http server ./ -p <port #>
-> ```
+    > Then navigate to `http://localhost:3000` in your browser.
+4. To view a production version locally that is offline cabable.
+    ```
+    npm run build
+	serve -s build
+    ```
+    > Then navigate to `http://localhost:5000` in your browser.
 
 ### Dependencies
 * [Normalize.css](https://necolas.github.io/normalize.css/)
