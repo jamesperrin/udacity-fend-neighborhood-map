@@ -1,5 +1,7 @@
 import config from './config/config'
 import Helpers from './utils/helpers'
+import VenueCachedData from './data/foursquare_fake_venues.json';
+import VenueDetailsCachedData from './data/foursquare_fake_venues_details.json';
 
 const base = {
     'url': 'https://api.foursquare.com/v2',
@@ -10,13 +12,10 @@ const base = {
 }
 
 export default class FoursquareAPI {
-    //TODO: Fix bug: won't retrieve JSON
     /**
      * @description Retrieves list of venues fakes
      */
-    static search_venues_Fake = () => {
-        return fetch('./data/foursquare_fake.json').then(res => res.json()).then(data => data);
-    }
+    static search_fake = VenueCachedData;
 
     /**
      * @description Retrieves list of venues
@@ -36,6 +35,15 @@ export default class FoursquareAPI {
     static getVenueDetails = (venue_id) => {
         return fetch(`${base.url}/venues/${venue_id}?${base.credentials}`, base.headers)
         .then(res => res.json());
+    }
+
+    /**
+     * @description Retrieves details about a venue
+     * @param venue_id Venue ID
+     */
+    static getVenueDetails_Fake = (venue_id) => {
+        const venue_details = VenueDetailsCachedData.venues.filter(v => v.id === venue_id);
+        return venue_details[0];
     }
 
     /**
