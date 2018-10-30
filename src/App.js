@@ -8,7 +8,8 @@ class App extends Component {
 
     state = {
         venues: [], // List of Venues
-        mapMarkers: [] // Used for accesssing map Markers
+        mapMarkers: [], // Used for accesssing map Markers
+        hasDataError: false
     };
 
     /**
@@ -25,7 +26,14 @@ class App extends Component {
         FoursquareAPI
             .search(searchParams)
             .then(results => {
-                const venues = results.response.venues;
+                let venues = results.response.venues;
+
+                if (!venues) {
+                    alert('Foursquare API error.\n\nUsing local data.');
+                    this.setState({ hasDataError: true });
+
+                    venues = FoursquareAPI.search_fake.response.venues;
+                }
 
                 // Setting state
                 this.setState({ venues }, this.renderMap());
@@ -43,9 +51,17 @@ class App extends Component {
         script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;
         script.async = true;
         script.defer = true;
+        script.onerror = () => {
+            //This page didn't load Google Maps correctly. See the JavaScript console for technical details.
+            alert("Cannot load Google Maps!\n\nPlease try again.");
+        };
         script.addEventListener('load', () => {
             this.initMap();
         });
+
+        window.gm_authFailure = function() {
+            alert('Cannot load Google Maps!\n\nPlease ensure you have a valid Google Maps API key!\n\nPlease visit https://developers.google.com/maps/documentation/javascript/get-api-key')
+        }
 
         // Addin script to web page
         document.body.appendChild(script);
@@ -167,43 +183,33 @@ class App extends Component {
             infoWindow.setContent('');
             infoWindow.marker = marker;
 
-            // Retrieve venue details
-            FoursquareAPI.getVenueDetails(venue.id)
+            // Hanlding when there is a data error.
+            if (this.state.hasDataError) {
+                const result = FoursquareAPI.getVenueDetails_Fake(venue.id);
+
+                // Creating InfoWindow
+                InfoWindow(result);
+            } else {
+                // Retrieve venue details
+                FoursquareAPI.getVenueDetails(venue.id)
                 .then(res => res)
                 .then(results => {
                     const result = results.response.venue;
 
-                    // Shaping Venue details
-                    const venueDetails = {
-                        name: result.name,
-                        adress: result.location.address,
-                        cityStateZip: `${result.location.city}, ${result.location.state} ${result.location.postalCode}`,
-                        phone: result.contact.formattedPhone,
-                        photo: `${result.bestPhoto.prefix}285x210${result.bestPhoto.suffix}`
-                    };
-
-                    // Creating InfoWindow content
-                    const contentString = `<div class="infoWindow"><strong>${venueDetails.name}</strong><p>${venueDetails.adress}</p><p>${venueDetails.cityStateZip}</p><p>${venueDetails.phone}</p><hr /><img src="${venueDetails.photo}" alt="${venueDetails.name} Venue Image" /><div/>`;
-
-                    infoWindow.setContent(contentString);
+                    // Creating InfoWindow
+                    InfoWindow(result);
                 }).catch(err => {
                     console.error(err);
 
-                    // Using catch block in case of hitting Foursquare API premium rate limit.
-                    // Allows testing of app
+                    alert('Foursquare API error.\n\nUsing local data.');
 
-                    // Shaping Venue details
-                    const venueDetails = {
-                        name: venue.name,
-                        adress: venue.location.address,
-                        cityStateZip: `${venue.location.city}, ${venue.location.state} ${venue.location.postalCode}`
-                    };
+                    // Handling Foursquare API premium rate limit error.
+                    const result = FoursquareAPI.getVenueDetails_Fake(venue.id);
 
-                    // Creating InfoWindow content
-                    const contentString = `<div class="infoWindow"><strong>${venueDetails.name}</strong><p>${venueDetails.adress}</p><p>${venueDetails.cityStateZip}</p><div/>`;
-
-                    infoWindow.setContent(contentString);
+                    // Creating InfoWindow
+                    InfoWindow(result);
                 });// END FoursquareAPI.getVenueDetails()
+            }
 
             // Make sure the marker property is cleared if the infowindow is closed.
             infoWindow.addListener('closeclick', function () {
@@ -214,6 +220,25 @@ class App extends Component {
 
             // Open InfoWindow event
             infoWindow.open(map, marker);
+
+            /**
+             * @description Create InfoWindow DRY
+             * @param {Object} venueDetails Venue details JSON object
+             */
+            function InfoWindow(venueDetails) {
+                const details = {
+                    name: venueDetails.name,
+                    adress: venueDetails.location.address,
+                    cityStateZip: `${venueDetails.location.city}, ${venueDetails.location.state} ${venueDetails.location.postalCode}`,
+                    phone: venueDetails.contact.formattedPhone,
+                    photo: `${venueDetails.bestPhoto.prefix}285x210${venueDetails.bestPhoto.suffix}`
+                };
+
+                // Creating InfoWindow content
+                const contentString = `<div class="infoWindow"><strong>${details.name}</strong><p>${details.adress}</p><p>${details.cityStateZip}</p><p>${details.phone}</p><hr /><img src="${details.photo}" alt="${details.name} Venue Image" /><div/>`;
+
+                infoWindow.setContent(contentString);
+            }
         }
     }
 
