@@ -3,6 +3,10 @@ Udactiy Front-End Web Developer Nanodegree
 
 ## Project - React - Neighborhood Map
 
+<a href="https://scan.coverity.com/projects/udacity-fend-neighborhood-map">
+  <img alt="Coverity Scan Build Status"
+       src="https://scan.coverity.com/projects/18932/badge.svg"/>
+</a>
 
 ### Table of Contents
 
